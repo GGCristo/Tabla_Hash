@@ -5,16 +5,16 @@
 
 int main ()
 {
-  Tabla<int> Tablota;
 
- // std::cout << "¿Cuantas celdas?" << "\n";
- // unsigned int nCeldas;
- // std::cin >> nCeldas;
+  std::cout << "¿Cuantas celdas?" << "\n";
+  unsigned int nCeldas;
+  std::cin >> nCeldas;
 
- // std::cout << "¿Con que tamaño?" << "\n";
- // unsigned int nClaves;
- // std::cin >> nClaves;
+  std::cout << "¿Con que tamaño?" << "\n";
+  unsigned int nClaves;
+  std::cin >> nClaves;
 
+  Tabla<int> Tablota(nCeldas, nClaves);
 
  // std::string fDispersion;
  // do

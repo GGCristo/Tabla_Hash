@@ -29,6 +29,32 @@ class Celda{
       nClaves_ = 0;
     }
 
+    bool Buscar (Clave X)
+    {
+      for (int i = 0; i < nClaves_; i++)
+      {
+        if (Registros_[i] == X)
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    bool Insertar (Clave X)
+    {
+      std::cout << "Incompleto" << std::endl;
+      return false;
+    }
+
+    bool estaLlena ()
+    {
+      for (int i = 0; i < nClaves_; i++)
+      {
+        return false;
+      }
+      return true;
+    }
 };
 
 

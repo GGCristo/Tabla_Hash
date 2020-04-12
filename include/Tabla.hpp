@@ -3,21 +3,25 @@
 
 #include <iostream>
 #include "Celda.hpp"
+#include "FDispersion.hpp"
+#include "FExploracion.hpp"
 
 template <class Clave>
 class Tabla{
   private:
     Celda<Clave>* vCelda;
-    int a;
-    //int fDispersion();
-    //int fExploracion();
+    int nCeldas_;
+
+    FDispersionBase<Clave>* fDispersion;
+    FExploracionBase<Clave>* fExploracion;
 
   public:
 
     Tabla(const int& nCeldas = 5, const int nClaves = 5)
     {
+      nCeldas_ = nCeldas;
       vCelda = new  Celda<Clave>  [nCeldas];
-      for (int i = 0; i < nCeldas; i++)
+      for (int i = 0; i < nCeldas_; i++)
       {
         vCelda[i].resize (nClaves);
       }
@@ -28,12 +32,17 @@ class Tabla{
       delete [] vCelda;
     }
 
-    bool Buscar(Clave)
+    bool Buscar(Clave X)
     {
-      return true;
+      for (int i = 0; i < nCeldas_; i++)
+      {
+        if (vCelda[i].Buscar(X))
+          return true;
+      }
+      return false;
     }
 
-    bool Insertar(Clave)
+    bool Insertar(Clave X)
     {
       return true;
     }
