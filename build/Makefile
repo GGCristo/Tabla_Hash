@@ -2,12 +2,14 @@ BIN = main
 TEST = $(wildcard ../test/*.cpp)
 TESTBIN = $(patsubst ../test/%.cpp, ../bin/%, $(TEST))
 SRC = $(wildcard ../src/*.cpp)
+HEADER = $(wildcard ../include/*.hpp)
+HEADER += $(wildcard ../include/*.h)
 OBJS = $(patsubst ../src/%.cpp,%.o,$(SRC))
 CFLAGS = -g -Wall
 
 .PHONY: all
 all: $(OBJS)
-	g++ $? -o ../bin/$(BIN)
+	g++ $? $(HEADER) -o ../bin/$(BIN)
 
 .PHONY: SFML
 SFML: $(OBJS)
@@ -19,7 +21,7 @@ run:
 
 .PHONY: debug
 debug:
-	g++ $(CFLAGS) ../src/* -o ../bin/$(BIN)
+	g++ $(CFLAGS) ../src/* $(HEADER) -o ../bin/$(BIN)
 
 .PHONY: clean
 clean:
@@ -34,5 +36,5 @@ test: $(TESTBIN)
 $(BIN).o: ../src/$(BIN).cpp
 	g++ -c $< -o $@
 
-%.o: ../src/%.cpp ../include/%.h
+%.o: ../src/%.cpp ../include/%.hpp
 	g++ -c $< -o $@
