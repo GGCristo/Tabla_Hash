@@ -2,9 +2,9 @@ BIN = main
 TEST = $(wildcard ../test/*.cpp)
 TESTBIN = $(patsubst ../test/%.cpp, ../bin/%, $(TEST))
 SRC = $(wildcard ../src/*.cpp)
+OBJS = $(patsubst ../src/%.cpp,%.o,$(SRC))
 HEADER = $(wildcard ../include/*.hpp)
 HEADER += $(wildcard ../include/*.h)
-OBJS = $(patsubst ../src/%.cpp,%.o,$(SRC))
 CFLAGS = -g -Wall
 
 .PHONY: all

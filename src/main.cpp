@@ -14,22 +14,22 @@ int main ()
   unsigned int nClaves;
   std::cin >> nClaves;
 
-  Tabla<int> Tablota(nCeldas, nClaves);
 
- // std::string fDispersion;
- // do
- // {
- //   std::cout << "¿Función de dispersión? (módulo, suma y pseudoaleatoria)" << "\n";
- //   std::cin >> fDispersion;
- // } while (fDispersion != "módulo" && fDispersion != "suma" && fDispersion != "pseudoaleatoria");
+  std::string fDispersion;
+  do
+  {
+    std::cout << "¿Función de dispersión? (módulo, suma y pseudoaleatoria)" << "\n";
+    std::cin >> fDispersion;
+  } while (fDispersion != "módulo" && fDispersion != "suma" && fDispersion != "pseudoaleatoria");
 
- // std::string fExploracion;
- // do
- // {
- //   std::cout << "¿Función de Exploración? (lineal, cuadrática , dispersión doble y re-dispersión)" << "\n";
- //   std::cin >> fExploracion;
- // } while (fExploracion != "lineal" && fExploracion != "cuadrática" && fExploracion != "dispersión" && fExploracion != "re-dispersión" );
+  std::string fExploracion;
+  do
+  {
+    std::cout << "¿Función de Exploración? (lineal, cuadrática , dispersión_doble y re-dispersión)" << "\n";
+    std::cin >> fExploracion;
+  } while (fExploracion != "lineal" && fExploracion != "cuadrática" && fExploracion != "dispersión_doble" && fExploracion != "re-dispersión" );
 
+  Tabla<int> Tablota(fDispersion, fExploracion, nCeldas, nClaves);
  // float factor = 5;
  // do
  // {

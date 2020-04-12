@@ -1,43 +1,87 @@
 #ifndef _FExploracion_
 #define _FExploracion_
 
+#include <iostream>
+
 template <class Clave>
 class FExploracionBase{
   private:
 
   public:
+
+    FExploracionBase<Clave>()
+    {
+      std::cout << "Soy un desgraciado2" << std::endl;
+    }
+
+    ~FExploracionBase<Clave>()
+    {
+      std::cout << "Me estan borrando2" << std::endl;
+    }
+
     virtual int operator() (const Clave&) = 0;
 };
 
 template <class Clave>
-class FExploracionLineal{
+class FExploracionLineal: public FExploracionBase<Clave>{
   private:
 
   public:
-    virtual int operator() (const Clave&) = 0;
+
+    FExploracionLineal<Clave>()
+    {
+      std::cout << "Soy lineal" << std::endl;
+    }
+
+    virtual int operator() (const Clave&)
+    {
+    }
 };
 
 template <class Clave>
-class FExploracionCuadratica{
+class FExploracionCuadratica: public FExploracionBase<Clave>{
   private:
 
   public:
-    virtual int operator() (const Clave&) = 0;
+
+    FExploracionCuadratica<Clave>()
+    {
+      std::cout << "Soy cuadrático" << std::endl;
+    }
+
+    virtual int operator() (const Clave&)
+    {
+    }
 };
 
 template <class Clave>
-class FExploracionDispersion_doble{
+class FExploracionDispersion_doble: public FExploracionBase<Clave>{
   private:
 
   public:
-    virtual int operator() (const Clave&) = 0;
+
+    FExploracionDispersion_doble<Clave>()
+    {
+      std::cout << "Soy Dispersion_doble" << std::endl;
+    }
+
+    virtual int operator() (const Clave&)
+    {
+    }
 };
 
 template <class Clave>
-class FExploracionRedispersion{
+class FExploracionRedispersion: public FExploracionBase<Clave>{
   private:
 
   public:
-    virtual int operator() (const Clave&) = 0;
+
+    FExploracionRedispersion<Clave>()
+    {
+      std::cout << "Soy Redispersion" << std::endl;
+    }
+    virtual int operator() (const Clave&)
+    {
+    }
 };
 #endif
