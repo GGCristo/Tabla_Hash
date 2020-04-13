@@ -13,7 +13,7 @@ class FExploracionBase{
     {
     }
 
-    ~FExploracionBase<Clave>()
+    virtual ~FExploracionBase<Clave>()
     {
     }
 

@@ -46,7 +46,7 @@ class Tabla{
 
     bool Buscar(Clave X)
     {
-      for(int i = (*fDispersion)(X); i < nCeldas_; i++)
+      for (int i = (*fDispersion)(X); i < nCeldas_; i++)
       {
         if (vCelda[i].Buscar(X))
           return true;
@@ -55,13 +55,19 @@ class Tabla{
           return false;
         }
       }
+      return false;
     }
 
     bool Insertar(Clave X)
     {
       int Dispersion_i = (*fDispersion)(X);
-
-      return false;
+      if (vCelda[Dispersion_i].Insertar(X))
+        return true;
+      else
+      {
+        std::cout << "Esta llena" << std::endl;
+        return false;
+      }
     }
 };
 

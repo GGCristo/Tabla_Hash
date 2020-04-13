@@ -14,7 +14,7 @@ class FDispersionBase{
       nCeldas_ = nCeldas;
     }
 
-    ~FDispersionBase<Clave>()
+    virtual ~FDispersionBase<Clave>()
     {
     }
 
@@ -33,7 +33,7 @@ class FDispersionModulo: public FDispersionBase<Clave> {
 
     int operator() (const Clave& X) override
     {
-      return X % this -> nCeldas_; //two-phase name lookup
+      return (unsigned long)(X) % this -> nCeldas_; //two-phase name lookup
     }
 };
 
@@ -50,7 +50,7 @@ class FDispersionSuma: public FDispersionBase<Clave> {
     int operator() (const Clave& X) override
     {
       unsigned int d = 0;
-      Clave x = X;
+      unsigned long int x = X;
       int y = 0;
       while (x > 0)
       {
@@ -75,7 +75,7 @@ class FDispersionPseudoaleatorio: public FDispersionBase<Clave> {
 
     int operator() (const Clave& X) override
     {
-      std::srand(X);
+      std::srand((unsigned long)(X));
       return rand() % this -> nCeldas_;
     }
 };

@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
+#include <vector>
+
 #include "../include/Tabla.hpp"
+#include "../include/DNI.hpp"
 
 int main ()
 {
@@ -26,21 +29,32 @@ int main ()
   {
     std::cout << "¿Función de Exploración? (lineal, cuadrática , dispersión_doble y re-dispersión)" << "\n";
     std::cin >> fExploracion;
-  } while (fExploracion != "lineal" && fExploracion != "cuadrática" && fExploracion != "dispersión_doble" && fExploracion != "re-dispersión" );
+  } while (fExploracion != "lineal" && fExploracion != "cuadrática" &&
+           fExploracion != "dispersión_doble" && fExploracion != "re-dispersión" );
 
-  Tabla<int> Tablota(fDispersion, fExploracion, nCeldas, nClaves);
-  Tablota.Insertar(43489575);
- // float factor = 5;
- // do
- // {
- //   std::cout << "¿Factor de carga?" << "\n";
- //   std::cin >> factor;
- // } while (factor < 0 || factor > 1);
+  Tabla<DNI> Tablota(fDispersion, fExploracion, nCeldas, nClaves);
 
- // std::cout << "¿Número de pruebas?" << "\n";
- // unsigned int nPruebas;
- // std::cin >> nPruebas;
+  float factor;
+  do
+  {
+    std::cout << "¿Factor de carga?" << "\n";
+    std::cin >> factor;
+  } while (factor < 0 || factor > 1);
 
+  std::cout << "¿Número de pruebas?" << "\n";
+  unsigned int nPruebas;
+  std::cin >> nPruebas;
+
+  // Banco de pruebas //
+  std::vector<DNI> Banco;
+  for (int i = 0; i < factor*nCeldas*nClaves; i++)
+  {
+    Banco.push_back(DNI());
+  }
+  for (int i = 0; i/(nCeldas*nClaves) < factor; i++)
+  {
+    Tablota.Insertar(Banco[i]);
+  }
 
 return 0;
 }

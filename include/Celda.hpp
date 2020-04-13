@@ -8,7 +8,7 @@ class Celda{
   private:
 
     Clave* Registros_;
-    Clave nClaves_;
+    unsigned int nClaves_;
     int ultimo; // Posición del ultimo elemento insertado [-1 - nClaves_ - 1]
   public:
 
@@ -33,7 +33,7 @@ class Celda{
 
     bool Buscar (Clave X)
     {
-      for (int i = 0; i < ultimo; i++)
+      for (int i = 0; i < ultimo + 1; i++)
       {
         if (Registros_[i] == X)
         {
@@ -47,7 +47,8 @@ class Celda{
     {
       if (!estaLlena())
       {
-        Registros_[++ultimo];
+        Registros_[++ultimo] = X;
+        return true;
       }
       return false;
     }
