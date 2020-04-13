@@ -1,23 +1,24 @@
 #ifndef _FDispersion_
 #define _FDispersion_
 #include <iostream>
+
 template <class Clave>
 class FDispersionBase{
-  private:
+  protected:
+    int nCeldas_;
 
   public:
 
-    FDispersionBase<Clave>()
+    FDispersionBase<Clave>(const int& nCeldas)
     {
-      std::cout << "Soy un desgraciado" << std::endl;
+      nCeldas_ = nCeldas;
     }
 
     ~FDispersionBase<Clave>()
     {
-      std::cout << "Me estan borrando" << std::endl;
     }
 
-    virtual int operator() (const Clave&) = 0;
+    virtual int operator() (const Clave& X) = 0;
 };
 
 template <class Clave>
@@ -25,30 +26,39 @@ class FDispersionModulo: public FDispersionBase<Clave> {
   private:
 
   public:
+    using FDispersionBase<Clave>::FDispersionBase;
+   // FDispersionModulo<Clave>()
+   // {
+   // }
 
-    FDispersionModulo<Clave>()
+    int operator() (const Clave& X) override
     {
-      std::cout << "Soy el modulo" << std::endl;
-    }
-
-    int operator() (const Clave&)
-    {
+      return X % this -> nCeldas_; //two-phase name lookup
     }
 };
 
 template <class Clave>
 class FDispersionSuma: public FDispersionBase<Clave> {
   private:
-
   public:
 
-    FDispersionSuma<Clave>()
-    {
-      std::cout << "Soy la suma" << std::endl;
-    }
+    using FDispersionBase<Clave>::FDispersionBase;
+   // FDispersionSuma<Clave>()
+   // {
+   // }
 
-    int operator() (const Clave&)
+    int operator() (const Clave& X) override
     {
+      unsigned int d = 0;
+      Clave x = X;
+      int y = 0;
+      while (x > 0)
+      {
+        y = x % 10;
+        d = d + y;
+        x = x/10;
+      }
+      return (d % this -> nCeldas_);
     }
 };
 
@@ -58,13 +68,15 @@ class FDispersionPseudoaleatorio: public FDispersionBase<Clave> {
 
   public:
 
-    FDispersionPseudoaleatorio<Clave>()
-    {
-      std::cout << "Soy Pseudoaletorio" << std::endl;
-    }
+   using FDispersionBase<Clave>::FDispersionBase;
+   // FDispersionPseudoaleatorio<Clave>()
+   // {
+   // }
 
-    int operator() (const Clave&)
+    int operator() (const Clave& X) override
     {
+      std::srand(X);
+      return rand() % this -> nCeldas_;
     }
 };
 #endif

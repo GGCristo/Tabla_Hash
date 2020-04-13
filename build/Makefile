@@ -1,3 +1,4 @@
+# Makefile génerico si un cpp solo depende de su header, si un un cpp depende de varios headers habra que crear una regla especial para él.
 BIN = main
 TEST = $(wildcard ../test/*.cpp)
 TESTBIN = $(patsubst ../test/%.cpp, ../bin/%, $(TEST))
@@ -9,7 +10,7 @@ CFLAGS = -g -Wall
 
 .PHONY: all
 all: $(OBJS)
-	g++ $? $(HEADER) -o ../bin/$(BIN)
+	g++ $? -o ../bin/$(BIN)
 
 .PHONY: SFML
 SFML: $(OBJS)
@@ -33,7 +34,7 @@ test: $(TESTBIN)
 ../bin/%: ../test/%.cpp ../test/catch.hpp
 	g++ $< -o $@
 
-$(BIN).o: ../src/$(BIN).cpp
+$(BIN).o: ../src/$(BIN).cpp $(HEADER)  # Despues del ../src/$(BIN) incluye todas las clases template
 	g++ -c $< -o $@
 
 %.o: ../src/%.cpp ../include/%.hpp

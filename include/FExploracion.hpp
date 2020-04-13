@@ -11,15 +11,13 @@ class FExploracionBase{
 
     FExploracionBase<Clave>()
     {
-      std::cout << "Soy un desgraciado2" << std::endl;
     }
 
     ~FExploracionBase<Clave>()
     {
-      std::cout << "Me estan borrando2" << std::endl;
     }
 
-    virtual int operator() (const Clave&) = 0;
+    virtual int operator() (const Clave&, int i) = 0;
 };
 
 template <class Clave>
@@ -33,8 +31,9 @@ class FExploracionLineal: public FExploracionBase<Clave>{
       std::cout << "Soy lineal" << std::endl;
     }
 
-    virtual int operator() (const Clave&)
+    virtual int operator() (const Clave&, int i) override
     {
+      return 0;
     }
 };
 
@@ -49,8 +48,9 @@ class FExploracionCuadratica: public FExploracionBase<Clave>{
       std::cout << "Soy cuadrático" << std::endl;
     }
 
-    virtual int operator() (const Clave&)
+    virtual int operator() (const Clave&, int i) override
     {
+      return 0;
     }
 };
 
@@ -65,8 +65,9 @@ class FExploracionDispersion_doble: public FExploracionBase<Clave>{
       std::cout << "Soy Dispersion_doble" << std::endl;
     }
 
-    virtual int operator() (const Clave&)
+    virtual int operator() (const Clave&, int i) override
     {
+      return 0;
     }
 };
 
@@ -80,8 +81,9 @@ class FExploracionRedispersion: public FExploracionBase<Clave>{
     {
       std::cout << "Soy Redispersion" << std::endl;
     }
-    virtual int operator() (const Clave&)
+    virtual int operator() (const Clave&, int i) override
     {
+      return 0;
     }
 };
 #endif

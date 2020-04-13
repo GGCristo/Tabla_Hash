@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "../include/Tabla.hpp"
-#include "../include/Celda.hpp"
 
 int main ()
 {
@@ -30,6 +29,7 @@ int main ()
   } while (fExploracion != "lineal" && fExploracion != "cuadrática" && fExploracion != "dispersión_doble" && fExploracion != "re-dispersión" );
 
   Tabla<int> Tablota(fDispersion, fExploracion, nCeldas, nClaves);
+  Tablota.Insertar(43489575);
  // float factor = 5;
  // do
  // {

@@ -9,12 +9,14 @@ class Celda{
 
     Clave* Registros_;
     Clave nClaves_;
+    int ultimo; // Posición del ultimo elemento insertado [-1 - nClaves_ - 1]
   public:
 
     Celda()
     {
       Registros_ = nullptr;
       nClaves_ = 0;
+      ultimo = -1;
     }
 
     void resize (const int& nClaves)
@@ -31,7 +33,7 @@ class Celda{
 
     bool Buscar (Clave X)
     {
-      for (int i = 0; i < nClaves_; i++)
+      for (int i = 0; i < ultimo; i++)
       {
         if (Registros_[i] == X)
         {
@@ -43,17 +45,18 @@ class Celda{
 
     bool Insertar (Clave X)
     {
-      std::cout << "Incompleto" << std::endl;
+      if (!estaLlena())
+      {
+        Registros_[++ultimo];
+      }
       return false;
     }
 
     bool estaLlena ()
     {
-      for (int i = 0; i < nClaves_; i++)
-      {
-        return false;
-      }
-      return true;
+      if (ultimo + 1 == nClaves_)
+        return true;
+      return false;
     }
 };
 
