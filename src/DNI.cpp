@@ -3,6 +3,10 @@
 #include <ctime>
 DNI::DNI ()
 {
-  srand(time(NULL));
   Valor_ = rand() % 99999999;
+}
+bool DNI::operator == (const DNI& dni)
+{
+  acumulado++;
+  return Valor_ == dni.Valor_;
 }

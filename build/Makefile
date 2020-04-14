@@ -3,9 +3,9 @@ BIN = main
 TEST = $(wildcard ../test/*.cpp)
 TESTBIN = $(patsubst ../test/%.cpp, ../bin/%, $(TEST))
 SRC = $(wildcard ../src/*.cpp)
-OBJS = $(patsubst ../src/%.cpp,%.o,$(SRC))
-HEADER = $(wildcard ../include/*.hpp)
-HEADER += $(wildcard ../include/*.h)
+OBJS = $(patsubst ../src/%.cpp, %.o, $(SRC))
+HEADER = Tabla FExploracion FDispersion Celda #Escribe aquí el nombre de las clases con template
+HEADER := $(patsubst %, ../include/%.hpp, $(HEADER))
 CFLAGS = -g -Wall
 
 .PHONY: all
@@ -31,10 +31,17 @@ clean:
 .PHONY: test
 test: $(TESTBIN)
 
+#(NOMBRE).o ../src/(NOMBRE).cpp ../include/(NOMBRE).hpp ../include/.hpp
+	#g++ -c $< -o $@
+###################################################################
+
+
+###################################################################
+
 ../bin/%: ../test/%.cpp ../test/catch.hpp
 	g++ $< -o $@
 
-$(BIN).o: ../src/$(BIN).cpp $(HEADER)  # Despues del ../src/$(BIN) incluye todas las clases template
+$(BIN).o: ../src/$(BIN).cpp $(HEADER)
 	g++ -c $< -o $@
 
 %.o: ../src/%.cpp ../include/%.hpp

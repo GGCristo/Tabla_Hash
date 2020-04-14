@@ -2,15 +2,18 @@
 #define _FExploracion_
 
 #include <iostream>
+#include "FDispersion.hpp"
 
 template <class Clave>
 class FExploracionBase{
-  private:
+  protected:
+    int nCeldas_;
 
   public:
 
-    FExploracionBase<Clave>()
+    FExploracionBase<Clave>(const int& nCeldas = 5)
     {
+      nCeldas_ = nCeldas;
     }
 
     virtual ~FExploracionBase<Clave>()
@@ -26,14 +29,10 @@ class FExploracionLineal: public FExploracionBase<Clave>{
 
   public:
 
-    FExploracionLineal<Clave>()
-    {
-      std::cout << "Soy lineal" << std::endl;
-    }
-
+    using FExploracionBase<Clave>::FExploracionBase;
     virtual int operator() (const Clave&, int i) override
     {
-      return 0;
+      return (i + 1) % this -> nCeldas_;
     }
 };
 
@@ -43,14 +42,12 @@ class FExploracionCuadratica: public FExploracionBase<Clave>{
 
   public:
 
-    FExploracionCuadratica<Clave>()
+    using FExploracionBase<Clave>::FExploracionBase;
+    virtual int operator() (const Clave& X, int i) override
     {
-      std::cout << "Soy cuadrático" << std::endl;
-    }
-
-    virtual int operator() (const Clave&, int i) override
-    {
-      return 0;
+      if (i == 0 || i == 1)
+        return (i + 1) % this -> nCeldas_;
+      return (i*i) % this -> nCeldas_;
     }
 };
 
@@ -58,31 +55,36 @@ template <class Clave>
 class FExploracionDispersion_doble: public FExploracionBase<Clave>{
   private:
 
+   FDispersionBase<Clave>* fDispersion;
+   int nCeldas_;
   public:
 
-    FExploracionDispersion_doble<Clave>()
+    FExploracionDispersion_doble<Clave>(const int& nCeldas)
     {
-      std::cout << "Soy Dispersion_doble" << std::endl;
+      fDispersion = new FDispersionSuma<Clave>(nCeldas);
+      this -> nCeldas_ = nCeldas;
     }
 
-    virtual int operator() (const Clave&, int i) override
+    virtual int operator() (const Clave& X, int i) override
     {
-      return 0;
+      return i * (1 + (*fDispersion)(X) % (nCeldas_ - 1)); // Entender
     }
 };
 
 template <class Clave>
 class FExploracionRedispersion: public FExploracionBase<Clave>{
   private:
-
+    int nCeldas_;
   public:
 
-    FExploracionRedispersion<Clave>()
+    FExploracionRedispersion<Clave>(const int& nCeldas)
     {
-      std::cout << "Soy Redispersion" << std::endl;
+      std::cout << "No esta terminado" << std::endl;
+      nCeldas_ = nCeldas;
     }
-    virtual int operator() (const Clave&, int i) override
+    virtual int operator() (const Clave& X, int i) override
     {
+      srand(X + i);
       return 0;
     }
 };

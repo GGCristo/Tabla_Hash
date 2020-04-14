@@ -5,9 +5,11 @@
 #include "../include/Tabla.hpp"
 #include "../include/DNI.hpp"
 
+unsigned DNI::acumulado = 0;
+
 int main ()
 {
-
+  srand(time(NULL));
   std::cout << "¿Cuantas celdas?" << "\n";
   unsigned int nCeldas;
   std::cin >> nCeldas;
@@ -47,14 +49,24 @@ int main ()
 
   // Banco de pruebas //
   std::vector<DNI> Banco;
-  for (int i = 0; i < factor*nCeldas*nClaves; i++)
+
+  for (int i = 0; i < 2*(factor*nCeldas*nClaves); i++)
   {
     Banco.push_back(DNI());
   }
+
   for (int i = 0; i/(nCeldas*nClaves) < factor; i++)
   {
     Tablota.Insertar(Banco[i]);
   }
-
+  unsigned int maximo = 0, minimo = 99999999;
+  for (int i = 0; i/(nCeldas*nClaves) < factor; i++)
+  {
+    Tablota.Buscar(Banco[i]);
+    if (DNI::acumulado > maximo) maximo = DNI::acumulado;
+    if (DNI::acumulado < minimo) minimo = DNI::acumulado;
+  }
+  std::cout << maximo << std::endl;
+  std::cout << minimo << std::endl;
 return 0;
 }

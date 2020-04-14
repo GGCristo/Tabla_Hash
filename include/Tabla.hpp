@@ -26,10 +26,10 @@ class Tabla{
       else if (fDispersion_s == "suma") fDispersion = new FDispersionSuma<Clave>(nCeldas_);
       else                              fDispersion = new FDispersionPseudoaleatorio<Clave>(nCeldas_);
 
-      if (fExploracion_s == "lineal")                fExploracion = new FExploracionLineal<Clave>;
-      else if (fExploracion_s == "cuadrática")       fExploracion = new FExploracionCuadratica<Clave>;
-      else if (fExploracion_s == "dispersión_doble") fExploracion = new FExploracionDispersion_doble<Clave>;
-      else                                           fExploracion = new FExploracionRedispersion<Clave>;
+      if (fExploracion_s == "lineal")                fExploracion = new FExploracionLineal<Clave>(nCeldas_);
+      else if (fExploracion_s == "cuadrática")       fExploracion = new FExploracionCuadratica<Clave>(nCeldas_);
+      else if (fExploracion_s == "dispersión_doble") fExploracion = new FExploracionDispersion_doble<Clave>(nCeldas_);
+      else                                           fExploracion = new FExploracionRedispersion<Clave>(nCeldas_);
 
       for (int i = 0; i < nCeldas_; i++)
       {
@@ -46,7 +46,7 @@ class Tabla{
 
     bool Buscar(Clave X)
     {
-      for (int i = (*fDispersion)(X); i < nCeldas_; i++)
+      for (int i = (*fDispersion)(X); i < nCeldas_; i = (*fExploracion)(X, i))
       {
         if (vCelda[i].Buscar(X))
           return true;
@@ -60,14 +60,12 @@ class Tabla{
 
     bool Insertar(Clave X)
     {
-      int Dispersion_i = (*fDispersion)(X);
-      if (vCelda[Dispersion_i].Insertar(X))
-        return true;
-      else
+      for (int i = (*fDispersion)(X); i < nCeldas_; i = (*fExploracion)(X, i))
       {
-        std::cout << "Esta llena" << std::endl;
-        return false;
+        if (vCelda[i].Insertar(X))
+          return true;
       }
+      return false;
     }
 };
 
