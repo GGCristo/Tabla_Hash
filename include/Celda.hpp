@@ -62,7 +62,7 @@ class Celda{
 
     bool estaLlena ()
     {
-      if (ultimo + 1 == nClaves_)
+      if (ultimo + 1 == (int)(nClaves_))
       {
         return true;
       }
