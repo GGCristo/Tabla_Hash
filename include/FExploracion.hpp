@@ -74,18 +74,13 @@ class FExploracionDispersion_doble: public FExploracionBase<Clave>{
 template <class Clave>
 class FExploracionRedispersion: public FExploracionBase<Clave>{
   private:
-    int nCeldas_;
   public:
 
-    FExploracionRedispersion<Clave>(const int& nCeldas)
-    {
-      std::cout << "No esta terminado" << std::endl;
-      nCeldas_ = nCeldas;
-    }
+    using FExploracionBase<Clave>::FExploracionBase;
     virtual int operator() (const Clave& X, int i) override
     {
       srand(X + i);
-      return 0;
+      return (i + rand()) % (this -> nCeldas_);
     }
 };
 #endif

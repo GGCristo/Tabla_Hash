@@ -46,26 +46,42 @@ class Tabla{
 
     bool Buscar(Clave X)
     {
-      for (int i = (*fDispersion)(X); i < nCeldas_; i = (*fExploracion)(X, i))
+      int d = 0;
+      for (int i = (*fDispersion)(X); d < nCeldas_; i = (*fExploracion)(X, i))
       {
         if (vCelda[i].Buscar(X))
+        {
           return true;
+        }
         else if (!vCelda[i].estaLlena())
         {
           return false;
         }
+        d++;
       }
       return false;
     }
 
     bool Insertar(Clave X)
     {
-      for (int i = (*fDispersion)(X); i < nCeldas_; i = (*fExploracion)(X, i))
+      int d = 0;
+      for (int i = (*fDispersion)(X); d < nCeldas_; i = (*fExploracion)(X, i))
       {
         if (vCelda[i].Insertar(X))
+        {
           return true;
+        }
+      d++;
       }
       return false;
+    }
+
+    void clear ()
+    {
+      for (int i = 0; i < nCeldas_; i++)
+      {
+        vCelda[i].clear();
+      }
     }
 };
 

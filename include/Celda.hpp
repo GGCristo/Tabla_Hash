@@ -14,15 +14,22 @@ class Celda{
 
     Celda()
     {
-      Registros_ = nullptr;
+      Registros_ = new Clave[1];
       nClaves_ = 0;
       ultimo = -1;
     }
 
     void resize (const int& nClaves)
     {
-      Registros_ = new Clave[nClaves];
+      clear();
       nClaves_ = nClaves;
+    }
+
+    void clear ()
+    {
+      delete [] Registros_;
+      Registros_ = new Clave[nClaves_];
+      ultimo = -1;
     }
 
     ~Celda ()
@@ -56,7 +63,9 @@ class Celda{
     bool estaLlena ()
     {
       if (ultimo + 1 == nClaves_)
+      {
         return true;
+      }
       return false;
     }
 };
