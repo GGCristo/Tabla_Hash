@@ -47,7 +47,8 @@ class Tabla{
     bool Buscar(Clave X)
     {
       int d = 0;
-      for (int i = (*fDispersion)(X); d < nCeldas_; i = (*fExploracion)(X, i))
+      const int c = (*fDispersion)(X);
+      for (int i = c; d < nCeldas_; i = (c + (*fExploracion)(X, i)) % nCeldas_)
       {
         if (vCelda[i].Buscar(X))
         {
@@ -65,7 +66,8 @@ class Tabla{
     bool Insertar(Clave X)
     {
       int d = 0;
-      for (int i = (*fDispersion)(X); d < nCeldas_; i = (*fExploracion)(X, i))
+      const int c = (*fDispersion)(X);
+      for (int i = c; d < nCeldas_; i = (c + (*fExploracion)(X, i)) % nCeldas_)
       {
         if (vCelda[i].Insertar(X))
         {

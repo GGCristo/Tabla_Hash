@@ -32,7 +32,7 @@ class FExploracionLineal: public FExploracionBase<Clave>{
     using FExploracionBase<Clave>::FExploracionBase;
     virtual int operator() (const Clave&, int i) override
     {
-      return (i + 1) % this -> nCeldas_;
+      return i;
     }
 };
 
@@ -46,8 +46,8 @@ class FExploracionCuadratica: public FExploracionBase<Clave>{
     virtual int operator() (const Clave& X, int i) override
     {
       if (i == 0 || i == 1)
-        return (i + 1) % this -> nCeldas_;
-      return (i*i) % this -> nCeldas_;
+        return (i + 1);
+      return (i*i);
     }
 };
 
@@ -67,7 +67,7 @@ class FExploracionDispersion_doble: public FExploracionBase<Clave>{
 
     virtual int operator() (const Clave& X, int i) override
     {
-      return i * (1 + (*fDispersion)(X) % (nCeldas_ - 1)); // Entender
+      return i * (1 + (*fDispersion)(X)); // Entender
     }
 };
 
@@ -80,7 +80,7 @@ class FExploracionRedispersion: public FExploracionBase<Clave>{
     virtual int operator() (const Clave& X, int i) override
     {
       srand(X + i);
-      return (i + rand()) % (this -> nCeldas_);
+      return i + rand();
     }
 };
 #endif

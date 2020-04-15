@@ -50,8 +50,8 @@ int main ()
   nCeldas = 1000;
   nClaves = 2;
   fDispersion = "suma";
-  fExploracion = "re-dispersión";
-  factor = 0.01;
+  fExploracion = "cuadrática";
+  factor = 0.4;
   nPruebas = 1;
 
   Tabla<DNI> Tablota(fDispersion, fExploracion, nCeldas, nClaves);
