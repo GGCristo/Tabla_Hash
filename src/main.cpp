@@ -66,8 +66,8 @@ int main ()
     Tablota.Insertar(Banco[i]);
   }
 
-  unsigned int B_maximo = 0, acumulado_B = 0, B_minimo = 99999999;
-  unsigned int I_maximo = 0, acumulado_I = 0, I_minimo = 99999999;
+  unsigned long int B_maximo = 0, acumulado_B = 0, B_minimo = 9999999999;
+  unsigned long int I_maximo = 0, acumulado_I = 0, I_minimo = 9999999999;
 
   for (unsigned int i = 0; i < nPruebas; i++)
   {
