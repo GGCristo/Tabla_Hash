@@ -46,7 +46,7 @@ class FExploracionCuadratica: public FExploracionBase<Clave>{
     virtual int operator() (const Clave& X, int i) override
     {
       if (i == 0 || i == 1)
-        return (i + 1);
+        return i;
       return (i*i);
     }
 };
@@ -65,9 +65,14 @@ class FExploracionDispersion_doble: public FExploracionBase<Clave>{
       this -> nCeldas_ = nCeldas;
     }
 
+    ~FExploracionDispersion_doble<Clave>()
+    {
+      delete fDispersion;
+    }
+
     virtual int operator() (const Clave& X, int i) override
     {
-      return i * (1 + (*fDispersion)(X)); // Entender
+      return i * (1 + (*fDispersion)(X));
     }
 };
 

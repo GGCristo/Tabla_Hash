@@ -21,8 +21,8 @@ class Celda{
 
     void resize (const int& nClaves)
     {
-      clear();
       nClaves_ = nClaves;
+      clear();
     }
 
     void clear ()

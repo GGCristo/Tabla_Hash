@@ -47,6 +47,13 @@ int main ()
   unsigned int nPruebas;
   std::cin >> nPruebas;
 
+  //nCeldas = 1000;
+  //nClaves = 2;
+  //fDispersion = "suma";
+  //fExploracion = "cuadrática";
+  //factor = 0.4;
+  //nPruebas = 5;
+
   Tabla<DNI> Tablota(fDispersion, fExploracion, nCeldas, nClaves);
 
   // Banco de pruebas //
@@ -70,7 +77,6 @@ int main ()
     acumulado_B += DNI::acumulado;
     DNI::acumulado = 0;
   }
-
   for (unsigned int i = 0; i < nPruebas; i++)
   {
     Tablota.Buscar(Banco[N + (rand() % N)]);
@@ -80,11 +86,11 @@ int main ()
     DNI::acumulado = 0;
   }
 
-  std::cout << "Celdas  nClave  Dispersión  Exploracion  Carga  Pruebas" << std::endl;
+  std::cout << "Celdas  nClave  Dispersión       Exploracion       Carga  Pruebas" << std::endl;
   std::cout << std::left     << std::setw(8)  << nCeldas;
   std::cout << std::setw(8)  << nClaves;
-  std::cout << std::setw(12) << fDispersion;
-  std::cout << std::setw(14) << fExploracion;
+  std::cout << std::setw(17) << fDispersion;
+  std::cout << std::setw(18) << fExploracion;
   std::cout << std::setw(7)  << (factor*100)   << "\%";
   std::cout << std::setw(9)  << nPruebas;
   std::cout << "\n\n           Mínimo  Medio  Máximo" << std::endl;

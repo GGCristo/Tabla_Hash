@@ -6,12 +6,15 @@
 #include "Celda.hpp"
 #include "FDispersion.hpp"
 #include "FExploracion.hpp"
+#include <typeinfo>
+#include <string>
 
 template <class Clave>
 class Tabla{
   private:
     Celda<Clave>* vCelda;
     int nCeldas_;
+    std::string fExploracion_s_;
 
     FDispersionBase<Clave>* fDispersion;
     FExploracionBase<Clave>* fExploracion;
@@ -35,6 +38,7 @@ class Tabla{
       {
         vCelda[i].resize (nClaves);
       }
+      fExploracion_s_ = fExploracion_s;
     }
 
     ~Tabla()
@@ -47,16 +51,25 @@ class Tabla{
     bool Buscar(Clave X)
     {
       int d = 0;
-      const int c = (*fDispersion)(X);
+      int c = (*fDispersion)(X);
       for (int i = c; d < nCeldas_ + 1; i = (c + (*fExploracion)(X, i)) % nCeldas_)
       {
-        if (vCelda[i].Buscar(X))
-        {
-          return true;
-        }
-        else if (!vCelda[i].estaLlena())
-        {
-          return false;
+        if (vCelda[i].Buscar(X)) return true;
+        else if (!vCelda[i].estaLlena()) return false;
+
+        // Esta es la parte negativa de la función cuadrática
+        else if (fExploracion_s_ == "cuadrática" && d!=0 && d + 2 < nCeldas_) // Me aseguro de que no es la primera iteracción pues esa esta destina a la función dispersión
+        {                                                                     // Así mismo aumento el iterador porque considero que la parte negativa tambien cuenta como un intento más
+          i = d - (*fExploracion)(X,i);
+
+          if (i < 0)
+            i = (i * (-1)) % nCeldas_;
+          else
+            i %= nCeldas_;
+
+          if (vCelda[i].Buscar(X)) return true;
+          else if (!vCelda[i].estaLlena()) return false;
+          d++;
         }
         d++;
       }
@@ -66,14 +79,22 @@ class Tabla{
     bool Insertar(Clave X)
     {
       int d = 0;
-      const int c = (*fDispersion)(X);
+      int c = (*fDispersion)(X);
       for (int i = c; d < nCeldas_ + 1; i = (c + (*fExploracion)(X, i)) % nCeldas_)
       {
-        if (vCelda[i].Insertar(X))
+        if (vCelda[i].Insertar(X)) return true;
+        else if (fExploracion_s_ == "cuadrática" && d!=0 && d + 2 < nCeldas_)
         {
-          return true;
+          i = d - (*fExploracion)(X,i);
+
+          if (i < 0)
+            i = (i * (-1)) % nCeldas_;
+          else
+            i %= nCeldas_;
+
+          if (vCelda[i].Buscar(X)) return true;
         }
-      d++;
+        d++;
       }
       return false;
     }
@@ -86,7 +107,4 @@ class Tabla{
       }
     }
 };
-
-
-
 #endif
